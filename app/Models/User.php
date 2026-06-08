@@ -19,6 +19,12 @@ class User extends Authenticatable implements JWTSubject
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
 
+    // User roles
+
+    const ROLE_ADMIN = 'admin';
+    const ROLE_STAFF = 'staff';
+    const ROLE_VIEWER = 'viewer';
+
     /**
      * Get the attributes that should be cast.
      *
@@ -50,5 +56,16 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    // user id admin
+    public function isAdmin()
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+    
+    public function isStaff()
+    {
+        return $this->role === self::ROLE_STAFF;
     }
 }
