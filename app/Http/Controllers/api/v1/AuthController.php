@@ -95,6 +95,12 @@ class AuthController extends Controller
         try {
 
             Mail::to($email)->send(new PasswordResetMail($token, $email, $user->name));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'password reset email sent',
+            ], 200);
+
         } catch (\Exception $e) {
             return response()->json([
                 'success' => 'false',
